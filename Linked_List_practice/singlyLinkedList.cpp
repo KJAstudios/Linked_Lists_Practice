@@ -63,8 +63,9 @@ void singlyLinkedList::append(int value) {
 }
 
 void singlyLinkedList::deleteNode(int index) {
-	if (head == nullptr) {
-		return;
+	if (head == nullptr) return;
+	if (index == 0 && head->nextNode == nullptr) {
+
 	}
 	singleLinkNode* curNode = head;
 	singleLinkNode* prevNode = head;
@@ -78,4 +79,62 @@ void singlyLinkedList::deleteNode(int index) {
 	singleLinkNode* tempNode = curNode->nextNode;
 	prevNode->nextNode = tempNode;
 	delete curNode;
+}
+
+void singlyLinkedList::deleteList() {
+	if (head == nullptr) return;
+	singleLinkNode* curNode = head;
+	singleLinkNode* nextNode = curNode->nextNode;
+	head = nullptr;
+	while (nextNode != nullptr) {
+		delete curNode;
+		curNode = nextNode;
+		nextNode = curNode->nextNode;
+	}
+}
+
+int singlyLinkedList::countLength() {
+	if (head == nullptr) return 0;
+	int length = 0;
+	singleLinkNode* curNode = head;
+	while (curNode != nullptr) {
+		length++;
+		curNode = curNode->nextNode;
+	}
+	return length;
+}
+
+bool singlyLinkedList::iterativeSearch(int value) {
+	if (head == nullptr) return false;
+	if (head->data == value) return true;
+	singleLinkNode* curNode = head;
+	while (curNode != nullptr) {
+		if (curNode->data == value) {
+			return true;
+		}
+		curNode = curNode->nextNode;
+	}
+	return false;
+}
+
+bool singlyLinkedList::recursiveSearch(int value, singleLinkNode* inNode, bool isStart) {
+	if (inNode == nullptr && isStart) inNode = head;
+	if (inNode == nullptr) return false;
+	if (inNode->data == value) return true;
+	return recursiveSearch(value, inNode->nextNode, false);
+}
+
+void singlyLinkedList::reverseList() {
+	if (head == nullptr) return;
+	singleLinkNode* curNode = head;
+	singleLinkNode* prevNode = nullptr;
+	singleLinkNode* nextNode = curNode->nextNode;
+	while (curNode->nextNode != nullptr) {
+		curNode->nextNode = prevNode;
+		prevNode = curNode;
+		curNode = nextNode;
+		nextNode = curNode->nextNode;
+	}
+	curNode->nextNode = prevNode;
+	head = curNode;
 }
