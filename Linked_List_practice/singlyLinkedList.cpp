@@ -60,5 +60,22 @@ void singlyLinkedList::append(int value) {
 		}
 		curNode = curNode->nextNode;
 	}
+}
 
+void singlyLinkedList::deleteNode(int index) {
+	if (head == nullptr) {
+		return;
+	}
+	singleLinkNode* curNode = head;
+	singleLinkNode* prevNode = head;
+	for (int i = 0; i < index; i++) {
+		if (curNode == nullptr) {
+			return;
+		}
+		prevNode = curNode;
+		curNode = curNode->nextNode;
+	}
+	singleLinkNode* tempNode = curNode->nextNode;
+	prevNode->nextNode = tempNode;
+	delete curNode;
 }

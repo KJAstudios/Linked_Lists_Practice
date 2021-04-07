@@ -23,6 +23,11 @@ int main() {
 	stackList.printList();
 	std::cout << "\n";
 
+	heapList->deleteNode(1);
+
+	heapList->printList();
+	std::cout << "\n";
+
 	delete heapList;
 	return 0;
 }
